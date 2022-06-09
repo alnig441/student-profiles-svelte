@@ -4,7 +4,7 @@ import Tag from './Tag.svelte';
 import Grade from './Grade.svelte';
 import AddTag from './AddTag.svelte';
 import { getStudent } from '../app_modules/utilities';
-import { studentsViewAsPromise, allStudentsAsPromise } from '../stores';
+import { studentsViewAsPromise } from '../stores';
 
 export let students;
 
@@ -14,17 +14,10 @@ let toggle = false;
 let currentId;
 let allStudents;
 
-onMount(() => {
-  // console.log('studs: ', students)
-})
-afterUpdate(() => {
-  // console.log(students)
-})
 
 function addTag(e) {
   let {id , student} = getStudent(students, e.detail);
   students[id] = student[0];
-  // allStudentsAsPromise.set(students);
   studentsViewAsPromise.set(students);
 }
 

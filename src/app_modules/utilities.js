@@ -1,4 +1,5 @@
 import { previousTagSearchAsPromise, previousNameSearchAsPromise, allStudentsAsPromise, studentsViewAsPromise } from '../stores';
+import { API } from './api';
 
 let tag, name, all;
 
@@ -15,6 +16,17 @@ function setName(value) {
 function setTag(value) {
   tag = value;
 };
+
+export function init(){
+  if(localStorage.getItem('allStudents')) {
+    const students = JSON.parse(localStorage.getItem('allStudents'));
+    return students;
+  }
+  else {
+    API.getStudents();
+  }
+
+}
 
 export function getAverage(grades) {
     const total = 0;
@@ -37,8 +49,30 @@ export function getStudent(students, details) {
       return student;
     }
   })
+
+  updateAll(result[0]);
+
   return { id: index, student : result }
+
+  function updateAll(student) {
+    const {email} = student;
+    let index;
+
+    let match = all.filter((student, i) => {
+      let values = Object.values(student);
+      if(values.find(value => value === email)){
+        index = i;
+        return student;
+      }
+    })
+
+    all[index] = student;
+    allStudentsAsPromise.set(all);
+    return;
+  }
 }
+
+
 
 export function search(details) {
   const {input, type} = details;

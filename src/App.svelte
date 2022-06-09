@@ -5,12 +5,12 @@ import Student from './components/Student.svelte';
 import { API } from './app_modules/api';
 import { search } from './app_modules/utilities';
 import { studentsViewAsPromise, previousTagSearchAsPromise, previousNameSearchAsPromise } from './stores';
-
+import { init } from './app_modules/utilities';
 
 let students = ''
 
 onMount(() => {
-	API.getStudents()
+	students = init();
 })
 
 studentsViewAsPromise.subscribe(setStudents);
