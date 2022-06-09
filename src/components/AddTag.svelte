@@ -18,6 +18,6 @@ function add(e) {
 }
 
 </script>
-<form >
+<form id="add_a_tag">
   <input {email} {type} {placeholder} on:keypress={add}/>
 </form>

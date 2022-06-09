@@ -2,4 +2,8 @@
 export let tags;
 
 </script>
-<p>{tags}</p>
+<div>
+{#each tags as tag}
+<p class="tag">{tag}</p>
+{/each}
+</div>
